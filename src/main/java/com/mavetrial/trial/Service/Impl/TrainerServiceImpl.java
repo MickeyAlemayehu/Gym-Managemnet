@@ -37,5 +37,26 @@ public class TrainerServiceImpl implements TrainerService{
         return trainers.stream()
         .map((trainer) -> TrainerMapper.mapToTrainerDto(trainer))
         .collect(Collectors.toList());
+    }
+
+    @Override
+    public TrainerDto updatedTrainer(int trainerID, TrainerDto updatedTrainer) {
+        Trainer trainer = trainerRepository.findById(trainerID)
+        .orElseThrow( () -> new ResourceNotFound("Trainer with the ID " + trainerID + "not found "));
+        trainer.setTrainerName(updatedTrainer.getTrainerName());
+        trainer.setTrainerAge(updatedTrainer.getTrainerAge());
+        trainer.setTrainerPhone(updatedTrainer.getTrainerPhone());
+        trainer.setTrainerAddress(updatedTrainer.getTrainerAddress());
+        trainer.setClassID(updatedTrainer.getClassID());
+        Trainer updatedTrainerObjTrainer = trainerRepository.save(trainer);
+        return TrainerMapper.mapToTrainerDto(updatedTrainerObjTrainer);
+    }
+
+    @Override
+    public void deleteTrainerById(int trainerID) {
+         trainerRepository.findById(trainerID)
+        .orElseThrow( () -> new ResourceNotFound("Trainer with the ID " + trainerID + " not found "));
+        trainerRepository.deleteById(trainerID);
     } 
+
 }

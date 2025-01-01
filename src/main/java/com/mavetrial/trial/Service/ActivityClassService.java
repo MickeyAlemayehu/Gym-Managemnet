@@ -9,4 +9,9 @@ public interface ActivityClassService {
     ActivityClassDto getActivityClassById(int classID);
 
     List <ActivityClassDto> getAllActivityClass ();
+
+    ActivityClassDto updateActivityClass(int classID, ActivityClassDto updatedActivityClass);
+
+    void deleteActivityClassById (int classID);
+
 }

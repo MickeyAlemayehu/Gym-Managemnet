@@ -9,4 +9,9 @@ public interface EquipmentService {
     EquipmentDto getEquipmentById(int equID);
 
     List<EquipmentDto> getAllEquipment ();
+
+    EquipmentDto updateEquipment(int equID, EquipmentDto updatedEquipment);
+
+    void deleteEquipmentById (int equID);
+
 }

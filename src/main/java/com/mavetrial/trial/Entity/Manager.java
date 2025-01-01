@@ -30,6 +30,8 @@ public class Manager {
     @Column(name = "password")
     private String password;
 
+    
+
 
     public Manager(String managerName, String managerAge, String managerPhone, String managerAddress, String username,
             String password) {

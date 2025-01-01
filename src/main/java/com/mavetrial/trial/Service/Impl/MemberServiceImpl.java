@@ -40,4 +40,27 @@ public class MemberServiceImpl implements MemberService{
         .map((member) -> MemberMapper.mapToMemberDto(member))
         .collect(Collectors.toList());
     }
+
+    @Override
+    public MemberDto updateMember(int memberID, MemberDto updatedMember) {
+        Member member = memberRepository.findById(memberID)
+         .orElseThrow ( () -> new ResourceNotFound("Member with the ID " + memberID + " not found"));
+         member.setMemberName(updatedMember.getMemberName());
+         member.setMemberAge(updatedMember.getMemberAge());
+         member.setMemberPhone(member.getMemberPhone());
+         member.setMemberAddress(updatedMember.getMemberAddress());
+         member.setMembership_plan(updatedMember.getMembership_plan());
+         member.setExpiryDate(updatedMember.getExpiryDate());
+         member.setClassID(updatedMember.getClassID());
+         Member updatedMemberObj = memberRepository.save(member);
+        return MemberMapper.mapToMemberDto(updatedMemberObj);
+    }
+
+    @Override
+    public void deleteMemberById(int memberID) {
+        memberRepository.findById(memberID)
+         .orElseThrow ( () -> new ResourceNotFound("Member with the ID " + memberID + " not found"));
+        memberRepository.deleteById(memberID);
+    }
+    
 }

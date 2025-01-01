@@ -40,6 +40,27 @@ public class ActivityClassServiceImpl implements ActivityClassService{
         return activityclasses.stream()
         .map((activityclass) -> ActivityClassMapper.mapToClassDto(activityclass))
         .collect(Collectors.toList());
+    }
+
+    @Override
+    public ActivityClassDto updateActivityClass(int classID, ActivityClassDto updatedActivityClass) {
+        ActivityClass activityClass = activityClassRepository.findById(classID)
+         .orElseThrow(() -> new ResourceNotFound("Activity Class with the ID " + classID + " not found"));
+         activityClass.setClassName(updatedActivityClass.getClassName());
+         activityClass.setSchedule(updatedActivityClass.getSchedule());
+         activityClass.setCapacity(updatedActivityClass.getCapacity());
+         activityClass.setTrainerID(updatedActivityClass.getTrainerID());
+         ActivityClass updatedActivtyClassObj = activityClassRepository.save(activityClass);
+        return ActivityClassMapper.mapToClassDto(updatedActivtyClassObj);
+    }
+
+    @Override
+    public void deleteActivityClassById(int classID) {
+        activityClassRepository.findById(classID)
+         .orElseThrow(() -> new ResourceNotFound("Activity Class with the ID " + classID + " not found"));
+         activityClassRepository.deleteById(classID);
+        
     }   
+    
     
 }

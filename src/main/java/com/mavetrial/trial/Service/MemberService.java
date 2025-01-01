@@ -10,4 +10,8 @@ public interface MemberService {
     MemberDto getMemberById (int memberID);
 
     List<MemberDto> getAllMember ();
+
+    MemberDto updateMember(int memberID, MemberDto updatedMember);
+
+    void  deleteMemberById (int memberID);
 }

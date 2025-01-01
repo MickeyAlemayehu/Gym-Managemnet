@@ -41,4 +41,24 @@ public class EquipmentServiceImpl implements EquipmentService{
                 .map(equipment -> EquipmentMapper.mapToEquipmentDto(equipment))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public EquipmentDto updateEquipment(int equID, EquipmentDto updatedEquipment) {
+        Equipment equipment = equipmentRepository.findById(equID)
+          .orElseThrow (() -> new ResourceNotFound("Equipment with ID " + equID + " not found"));
+          equipment.setEquiName(updatedEquipment.getEquiName());
+          equipment.setEquiCategory(updatedEquipment.getEquiCategory());
+          equipment.setEquiStatus(updatedEquipment.getEquiStatus());
+          Equipment updatedEquipmentObj = equipmentRepository.save(equipment);
+        return EquipmentMapper.mapToEquipmentDto(updatedEquipmentObj);
+    }
+
+    @Override
+    public void deleteEquipmentById(int equID) {
+        equipmentRepository.findById(equID)
+          .orElseThrow (() -> new ResourceNotFound("Equipment with ID " + equID + " not found"));
+          equipmentRepository.deleteById(equID);
+    }
+
+
 }

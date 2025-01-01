@@ -9,4 +9,8 @@ public interface TrainerService {
     TrainerDto getTrainerByID (int trainerID);
 
     List<TrainerDto> getAllTrainer ();
+
+    TrainerDto updatedTrainer (int trainerID, TrainerDto updatedTrainer);
+
+    void deleteTrainerById (int trainerID);
 }
